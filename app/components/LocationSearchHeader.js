@@ -121,8 +121,8 @@ class LocationSearchHeader extends Component {
   }
 
   render() {
-    const {expanded, sourceText, navigation} = this.props;
-    const destinationText = navigation.destination ? navigation.destination.title : "";
+    const {expanded, sourceText, navigation, destinationText} = this.props;
+    const userDestination = navigation.destination ? navigation.destination.title : destinationText;
     const animatableStyles = this.getAnimatableStyles();
 
     return (
@@ -143,7 +143,7 @@ class LocationSearchHeader extends Component {
           transition={transitionProps.destinationText}
           pointerEvents={'none'}
         >
-          {destinationText.length === 0 ? 'Where to?' : destinationText}
+          {userDestination.length === 0 ? 'Where to?' : destinationText}
         </Animatable.Text>
         <Animatable.View
           style={[styles.destinationBox, animatableStyles.destinationBox]}
@@ -154,7 +154,7 @@ class LocationSearchHeader extends Component {
             <TextInput
               ref={'destinationInput'}
               style={styles.input}
-              value={destinationText}
+              value={userDestination}
               onChangeText={this.onDestinationTextChange}
             />
           )}
