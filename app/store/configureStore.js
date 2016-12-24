@@ -1,7 +1,5 @@
 import { createStore, applyMiddleware, compose } from "redux";
 import thunk from "redux-thunk";
-import { Map } from "immutable";
-import {path} from "ramda";
 import createLogger from "redux-logger";
 import rootReducer from "./reducers";
 
@@ -15,16 +13,10 @@ if (process.env.NODE_ENV === "development") {
   require("../config/ReactotronConfig");
 };
 
-export default (initialState = new Map()) => {
-
-  const reduxDevTool = typeof window !== "undefined" &&
-    path(["process", "env", "NODE_ENV"], window) !== "production" &&
-    window.__REDUX_DEVTOOLS_EXTENSION__ &&
-    window.__REDUX_DEVTOOLS_EXTENSION__();
+export default (initialState = {}) => {
 
   const enhancers = [
-    applyMiddleware(...middleware),
-    reduxDevTool
+    applyMiddleware(...middleware)
   ].filter(f => !!f);
 
   const store = createStore(

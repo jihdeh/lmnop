@@ -1,6 +1,6 @@
-import React, { Component } from 'react'
-import { Router, Scene } from 'react-native-router-flux'
-import { connect } from 'react-redux'
+import React, { Component } from 'react';
+import { Router, Scene } from 'react-native-router-flux';
+import { connect } from 'react-redux';
 
 import Main from './Main'
 
@@ -16,4 +16,4 @@ class AppRouter extends Component {
   }
 }
 
-export default connect()(AppRouter)
+export default connect()(AppRouter);

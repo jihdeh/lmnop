@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react'
+import React, { Component, PropTypes } from 'react';
 import {
   StyleSheet,
   Dimensions,
@@ -6,9 +6,9 @@ import {
   TouchableWithoutFeedback,
   TextInput,
   TouchableOpacity,
-} from 'react-native'
-import * as Animatable from 'react-native-animatable'
-
+} from 'react-native';
+import * as Animatable from 'react-native-animatable';
+import {connect} from 'react-redux';
 const transitionProps = {
   hoverbar: ['top', 'left', 'height', 'width', 'shadowRadius'],
   square: ['top', 'left'],
@@ -24,7 +24,11 @@ const SQUARE_SIZE = 6
 
 const AnimatableTouchable = Animatable.createAnimatableComponent(TouchableWithoutFeedback)
 
-export default class LocationSearchHeader extends Component {
+const mapStateToProps = (state) => ({
+  navigation: state.navigation
+})
+
+class LocationSearchHeader extends Component {
 
   static defaultProps = {
     expanded: false,
@@ -61,9 +65,9 @@ export default class LocationSearchHeader extends Component {
   }
 
   getAnimatableStyles = () => {
-    const {expanded, destinationText} = this.props
-    const {width: windowWidth} = Dimensions.get('window')
-    const width = windowWidth - 24 * 2
+    const {expanded, destinationText} = this.props;
+    const {width: windowWidth} = Dimensions.get('window');
+    const width = windowWidth - 24 * 2;
 
     return {
       hoverbar: {
@@ -117,8 +121,9 @@ export default class LocationSearchHeader extends Component {
   }
 
   render() {
-    const {expanded, sourceText, destinationText} = this.props
-    const animatableStyles = this.getAnimatableStyles()
+    const {expanded, sourceText, destinationText} = this.props;
+    console.log(this.props, "====");
+    const animatableStyles = this.getAnimatableStyles();
 
     return (
       <View style={styles.container}>
@@ -251,4 +256,5 @@ const styles = StyleSheet.create({
     fontSize: 15,
     paddingHorizontal: 10,
   },
-})
+});
+export default connect(mapStateToProps)(LocationSearchHeader);

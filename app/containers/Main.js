@@ -13,8 +13,8 @@ import {
 } from '../components';
 
 const mapStateToProps = (state) => ({
-  recentLocations: state.get("navigation").recentLocations,
-  shortcutLocations: state.get("navigation").recentLocations.slice(0, 3),
+  recentLocations: state.navigation.recentLocations,
+  shortcutLocations: state.navigation.recentLocations.slice(0, 3),
 });
 
 class Main extends Component {
@@ -64,7 +64,6 @@ class Main extends Component {
 
   render() {
     const {recentLocations, shortcutLocations} = this.props;
-    console.log(this.props)
     const {searchResultsOpen, sourceText, destinationText, region, position} = this.state;
 
     return (
@@ -111,4 +110,4 @@ const styles = StyleSheet.create({
   }
 })
 
-export default connect(mapStateToProps)(Main)
+export default connect(mapStateToProps)(Main);

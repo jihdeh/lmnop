@@ -1,12 +1,21 @@
-import React, { Component, PropTypes } from 'react'
-import { StyleSheet, View, Text, Image, Dimensions } from 'react-native'
-import * as Animatable from 'react-native-animatable'
+import React, { Component, PropTypes } from 'react';
+import { StyleSheet, View, Text, Image, Dimensions } from 'react-native';
+import * as Animatable from 'react-native-animatable';
+import { connect } from 'react-redux';
+import {
+  setDestination
+} from "../redux/actions";
+import LocationButton from './LocationButton';
 
-import LocationButton from './LocationButton'
+const transitionProps = ['top'];
 
-const transitionProps = ['top']
+const mapDispatchToProps = (dispatch) => ({
+  setNewDestination: (where) => {
+    dispatch(setDestination(where));
+  }
+});
 
-export default class LocationButtonGroup extends Component {
+class LocationButtonGroup extends Component {
 
   static defaultProps = {
     visible: true,
@@ -14,8 +23,12 @@ export default class LocationButtonGroup extends Component {
     onPressLocation: () => {},
   }
 
-  onPressLocation = () => {
-    
+  static propTypes = {
+    setDestination: PropTypes.func
+  }
+
+  onPressLocation = (destination) => {
+    this.props.setNewDestination(destination);
   }
 
   renderItem = (location, i) => {
@@ -97,4 +110,6 @@ const styles = StyleSheet.create({
     maxWidth: 74,
     textAlign: 'center',
   }
-})
+});
+
+export default connect(null, mapDispatchToProps)(LocationButtonGroup);

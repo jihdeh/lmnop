@@ -1,10 +1,10 @@
-import { Map } from "immutable";
-
 import {
   RECENT_DESTINATION,
 } from "./actions";
 
 
+// This app doesn't use actual APIs or dynamic data currently,
+// but feel free to take this app as a starting point and build it out
 const initialState = {
   recentLocations: [
     {id: 0, icon: 'home', title: 'Home', subtitle: '123 Spear St, San Francisco'},
@@ -16,13 +16,12 @@ const initialState = {
 };
 
 const DestinationReducer = (state = initialState, action) => {
-	console.log(action);
 	switch(action.type) {
-		case RECENT_DESTINATION:
+		case "RECENT_DESTINATION":
 			return {
 				...state,
 				destination: action.destination
-			}
+			};
 		default:
 			return state;
 	}
