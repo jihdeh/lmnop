@@ -121,8 +121,8 @@ class LocationSearchHeader extends Component {
   }
 
   render() {
-    const {expanded, sourceText, destinationText} = this.props;
-    console.log(this.props, "====");
+    const {expanded, sourceText, navigation} = this.props;
+    const destinationText = navigation.destination ? navigation.destination.title : "";
     const animatableStyles = this.getAnimatableStyles();
 
     return (
