@@ -14,6 +14,8 @@ import {
 
 const mapStateToProps = (state) => ({
   recentLocations: state.navigation.recentLocations,
+  path: state.navigation.path,
+  destination: state.navigation.destination,
   shortcutLocations: state.navigation.recentLocations.slice(0, 3),
 });
 
@@ -29,7 +31,7 @@ class Main extends Component {
     navigator.geolocation.getCurrentPosition(
       ({coords}) => {
         const {latitude, longitude} = coords
-
+        console.log(latitude, longitude)
         this.setState({
           position: {
             latitude,
@@ -63,7 +65,7 @@ class Main extends Component {
   }
 
   render() {
-    const {recentLocations, shortcutLocations} = this.props;
+    const {recentLocations, shortcutLocations, path, destination} = this.props;
     const {searchResultsOpen, sourceText, destinationText, region, position} = this.state;
 
     return (
@@ -93,6 +95,14 @@ class Main extends Component {
           showsUserLocation
           followsUserLocation
         >
+          {path && 
+            <MapView.Polyline
+              coordinates={[
+                position,
+                destination.position
+              ]}
+              strokeWidth={2}
+              /> }
         </MapView>
       </View>
     )
