@@ -14,6 +14,10 @@ export default class LocationButtonGroup extends Component {
     onPressLocation: () => {},
   }
 
+  onPressLocation = () => {
+    
+  }
+
   renderItem = (location, i) => {
     const {icon, title} = location
     const {onPressLocation} = this.props
@@ -25,7 +29,7 @@ export default class LocationButtonGroup extends Component {
       >
         <LocationButton
           icon={icon}
-          onPress={onPressLocation.bind(this, location)}
+          onPress={this.onPressLocation.bind(this, location)}
         />
         <View style={styles.itemSpacer} />
         <Text style={styles.itemText}>

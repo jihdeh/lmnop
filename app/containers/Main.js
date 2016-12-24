@@ -1,8 +1,8 @@
-import React, { Component, PropTypes } from 'react'
-import { StyleSheet, View, Image } from 'react-native'
-import { connect } from 'react-redux'
-import { Actions } from 'react-native-router-flux'
-import MapView from 'react-native-maps'
+import React, { Component, PropTypes } from 'react';
+import { StyleSheet, View, Image } from 'react-native';
+import { connect } from 'react-redux';
+import { Actions } from 'react-native-router-flux';
+import MapView from 'react-native-maps';
 
 import {
   LocationButtonGroup,
@@ -10,12 +10,12 @@ import {
   LocationSearchResults,
   SearchResultsList,
   NavigationIcon,
-} from '../components'
+} from '../components';
 
 const mapStateToProps = (state) => ({
-  recentLocations: state.recentLocations,
-  shortcutLocations: state.recentLocations.slice(0, 3),
-})
+  recentLocations: state.get("navigation").recentLocations,
+  shortcutLocations: state.get("navigation").recentLocations.slice(0, 3),
+});
 
 class Main extends Component {
 
@@ -45,26 +45,27 @@ class Main extends Component {
       },
       (error) => alert(JSON.stringify(error)),
       {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}
-    )
+    );
   }
 
   toggleSearchResults = () => {
-    const {searchResultsOpen} = this.state
+    const {searchResultsOpen} = this.state;
 
-    this.setState({searchResultsOpen: !searchResultsOpen})
+    this.setState({searchResultsOpen: !searchResultsOpen});
   }
 
   onSourceTextChange = (sourceText) => {
-    this.setState({sourceText})
+    this.setState({sourceText});
   }
 
   onDestinationTextChange = (destinationText) => {
-    this.setState({destinationText})
+    this.setState({destinationText});
   }
 
   render() {
-    const {recentLocations, shortcutLocations} = this.props
-    const {searchResultsOpen, sourceText, destinationText, region, position} = this.state
+    const {recentLocations, shortcutLocations} = this.props;
+    console.log(this.props)
+    const {searchResultsOpen, sourceText, destinationText, region, position} = this.state;
 
     return (
       <View style={styles.container}>
@@ -90,23 +91,9 @@ class Main extends Component {
         <MapView
           style={styles.map}
           region={region}
+          showsUserLocation
+          followsUserLocation
         >
-          {position && (
-            <MapView.Circle
-              center={position}
-              radius={300}
-              strokeColor={'transparent'}
-              fillColor={'rgba(112,185,213,0.30)'}
-            />
-          )}
-          {position && (
-            <MapView.Circle
-              center={position}
-              radius={100}
-              strokeColor={'transparent'}
-              fillColor={'#3594BC'}
-            />
-          )}
         </MapView>
       </View>
     )
